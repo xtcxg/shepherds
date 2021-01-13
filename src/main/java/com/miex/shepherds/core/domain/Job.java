@@ -1,13 +1,30 @@
 package com.miex.shepherds.core.domain;
 
+import javax.validation.constraints.NotNull;
+
 public class Job {
+
+    /**
+     * 文件的crc 16
+     */
+    @NotNull
     Long index;
+
+    @NotNull
     String fullName;
     String identification;
     String version;
     String insideVersion;
     String obtainTime;
     String jobStatus;
+
+    public String getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
+    }
 
     public Long getIndex() {
         return index;
@@ -59,13 +76,14 @@ public class Job {
 
     @Override
     public String toString() {
-        return "Model{" +
+        return "Job{" +
                 "index=" + index +
                 ", fullName='" + fullName + '\'' +
                 ", identification='" + identification + '\'' +
                 ", version='" + version + '\'' +
                 ", insideVersion='" + insideVersion + '\'' +
                 ", obtainTime='" + obtainTime + '\'' +
+                ", jobStatus='" + jobStatus + '\'' +
                 '}';
     }
 }
