@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/main/resources/sqllite/shepherds.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="buss.sqlite" uuid="a9323b44-6efa-4103-a52f-b97e7ed28ebf">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/main/resources/sqllite/shepherds.db</jdbc-url>
+    </data-source>
   </component>
 </project>
