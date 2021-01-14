@@ -18,7 +18,4 @@ public class Manager {
     public void entry(Worker worker){
         workers.put(worker.getWorkerId(),worker);
     }
-
-
-
 }
