@@ -19,7 +19,6 @@ import java.util.List;
  * 控制中心
  * 1.控制shepherd
  * 1.记录group信息
- *
  */
 @Slf4j
 @RestController
@@ -49,7 +48,7 @@ public class Center {
         });
 
         // 初始化工人
-        workerMapper.selectAll().forEach(e -> {
+        workerMapper.selectList(null).forEach(e -> {
             manager.entry(e);
         });
     }
@@ -63,17 +62,23 @@ public class Center {
     }
 
     /**
-     * 根据 id 获取工作内容
-     * @param id 工作 id
+     * 根据 jobIndex 获取工作内容
+     * @param jobIndex 工作 jobIndex
      * @return 工作内容
      */
     @PostMapping("job")
-    public Job job(Long id) {
-        return register.getJob(id);
+    public Job job(Long jobIndex) {
+        return register.getJob(jobIndex);
     }
 
+    /**
+     * 新增一个工作岗位
+     * @param job
+     * @return
+     */
     @PostMapping("add/job")
     public BackMsg addJob(@Valid @RequestBody Job job) {
+        job.setObtainTime(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));
         if (register.addJob(job)) {
             return new BackMsg();
         } else {

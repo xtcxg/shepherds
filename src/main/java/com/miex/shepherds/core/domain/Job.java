@@ -1,11 +1,8 @@
 package com.miex.shepherds.core.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,11 +16,28 @@ public class Job {
     @NotNull
     Long jobIndex;
 
+    /**
+     * 全称
+     */
     @NotNull
     String fullName;
-    String identification;
-    String version;
+
+    /**
+     * 名称
+     */
+    String jobName;
+
+    /**
+     * 版本
+     */
+    String jobVersion;
+
     Integer insideVersion;
+
+//    @Value(value = "#{new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(new java.util.Date())}" )
+    /**
+     * 注册时间
+     */
     String obtainTime;
     Integer jobStatus;
 }

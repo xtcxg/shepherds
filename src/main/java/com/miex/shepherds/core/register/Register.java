@@ -1,9 +1,7 @@
 package com.miex.shepherds.core.register;
 
 import com.miex.shepherds.core.domain.Job;
-import com.miex.shepherds.core.domain.Worker;
 import com.miex.shepherds.core.mapper.JobMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

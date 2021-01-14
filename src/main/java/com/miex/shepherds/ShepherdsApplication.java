@@ -1,7 +1,6 @@
 package com.miex.shepherds;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +42,9 @@ public class ShepherdsApplication {
             Class.forName((String) properties.get("spring.datasource.driver-class-name"));
             Connection conn = DriverManager.getConnection((String) properties.get("spring.datasource.url"));
             Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM worker WHERE id = 0");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM worker WHERE worker_id = 0");
             resultSet.next();
-            JSONObject.parseObject(resultSet.getString("args")).forEach(properties::put);
+            JSONObject.parseObject(resultSet.getString("prop")).forEach(properties::put);
             resultSet.close();
             statement.close();
             conn.close();

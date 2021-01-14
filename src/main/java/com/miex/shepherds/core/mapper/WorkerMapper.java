@@ -1,12 +1,8 @@
 package com.miex.shepherds.core.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.miex.shepherds.core.domain.Worker;
-import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
+public interface WorkerMapper extends BaseMapper<Worker> {
 
-public interface WorkerMapper {
-
-    @Select("SELECT * FROM worker")
-    List<Worker> selectAll();
 }

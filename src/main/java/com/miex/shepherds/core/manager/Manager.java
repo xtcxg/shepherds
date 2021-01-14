@@ -16,7 +16,7 @@ public class Manager {
     static Map<Long,Worker> workers = new HashMap<>();
 
     public void entry(Worker worker){
-        workers.put(worker.getId(),worker);
+        workers.put(worker.getWorkerId(),worker);
     }
 
 
