@@ -44,7 +44,7 @@ public class Center {
     @PostConstruct
     public void init() {
         // 初始化工作岗位
-        jobMapper.selectAll().forEach(e -> {
+        jobMapper.selectList(null).forEach(e -> {
             register.register(e);
         });
 
@@ -80,7 +80,5 @@ public class Center {
             return new BackMsg(BackMsg.BackEnums.SYS_FAIL,"数据插入失败");
         }
     }
-
-
 }
 

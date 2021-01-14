@@ -27,7 +27,7 @@ public class Register {
     private static Map<Long,Job> jobs = new HashMap<>();
 
     public void register(Job job){
-        jobs.put(job.getIndex(),job);
+        jobs.put(job.getJobIndex(),job);
     }
 
     public List<Job> getAllJob(){
@@ -44,7 +44,7 @@ public class Register {
 
     @Transactional
     public boolean addJob(Job job) {
-        if (0 == jobMapper.insert(job)) {
+        if (1 == jobMapper.insert(job)) {
             return true;
         } else {
             return false;
