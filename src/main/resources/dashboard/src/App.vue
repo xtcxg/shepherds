@@ -1,10 +1,10 @@
 <template>
     <div id="app">
-        <el-container style="height: 100%;padding-top: 0px">
+        <el-container style="height: 100%;padding-top: 0">
             <el-aside width="150px">
                 <el-col :span="15" >
                     <el-menu default-active="0" >
-                        <p style="font-family: 'Consolas',monospace; font-size: 1.5em;">Shepherds</p>
+                        <p style="font-family: 'Consolas',monospace; font-size: 1.5em;" v-on:click="load('/views/cont.html')">Shepherds</p>
                         <el-menu-item index="2" class="menu" v-on:click="load('/views/cont.html')">
                             <i class="el-icon-menu"></i>
                             <span slot="title" style="font-size: 20px">控制</span>
@@ -25,21 +25,27 @@
                 </el-col>
             </el-aside>
 
-            <el-main v-html="mainPage">
+            <el-main>
+                <Admin></Admin>
             </el-main>
         </el-container>
     </div>
 </template>
 
 <script>
+    import Admin from "./components/Admin";
     export default {
         name: "app",
+        components: {Admin},
         data() {
             return {
                 mainPath: "/views/cont.html",
                 mainPage: "",
                 isCollapse: true,
             };
+        },
+        comments: {
+            admin: admin,
         },
         methods: {
             load(url) {
