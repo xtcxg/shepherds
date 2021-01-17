@@ -9,7 +9,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 
 import java.util.Properties;
 
-@Configuration
+//@Configuration
 public class GlobalConfig {
     @Autowired
     private ConfigurableEnvironment environment;
@@ -22,6 +22,5 @@ public class GlobalConfig {
 
         PropertiesPropertySource constants = new PropertiesPropertySource("global-config", properties);
         propertySources.addLast(constants);
-//        propertySources.addAfter("applicationConfig: [classpath:/application.properties]", constants);
     }
 }

@@ -1,16 +1,15 @@
 <template>
-    <span>apple</span>
+    <span>display</span>
 </template>
 
 <script>
     export default {
-        name: "Admin",
+        name: "Display",
         data(){
             return {
 
             }
         }
-
     }
 </script>
 

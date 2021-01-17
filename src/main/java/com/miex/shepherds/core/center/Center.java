@@ -1,13 +1,12 @@
 package com.miex.shepherds.core.center;
 
-import com.miex.shepherds.core.domain.BackMsg;
 import com.miex.shepherds.core.domain.Job;
+import com.miex.shepherds.core.domain.RequestManager;
+import com.miex.shepherds.core.domain.ResponseManager;
+import com.miex.shepherds.core.domain.Worker;
 import com.miex.shepherds.core.manager.Manager;
-import com.miex.shepherds.core.mapper.JobMapper;
-import com.miex.shepherds.core.mapper.WorkerMapper;
 import com.miex.shepherds.core.register.Register;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -21,20 +20,16 @@ import java.util.List;
  * 1.记录group信息
  */
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping
 public class Center {
 
-    @Autowired
+    @Resource
     Manager manager;
 
-    @Autowired
+    @Resource
     Register register;
-
-    @Resource
-    JobMapper jobMapper;
-    @Resource
-    WorkerMapper workerMapper;
 
     /**
      * 从 job 获取数据，在 Register 提供一个工作岗位，
@@ -42,23 +37,26 @@ public class Center {
      */
     @PostConstruct
     public void init() {
-        // 初始化工作岗位
-        jobMapper.selectList(null).forEach(e -> {
-            register.register(e);
-        });
 
-        // 初始化工人
-        workerMapper.selectList(null).forEach(e -> {
-            manager.entry(e);
-        });
     }
 
     /**
-     * 获取当前能提供的所有工作岗位
+     * 获取工人列表
+     * @param request
+     * @return
      */
-    @GetMapping("jobs")
-    public List<Job> jobs() {
-        return register.getAllJob();
+    @PostMapping("works")
+    public List<Worker> workers(@RequestBody RequestManager<Worker> request){
+        return manager.getList(request);
+    }
+
+    /**
+     * 获取工作岗位列表
+     */
+    @PostMapping("jobs")
+    public List<Job> jobs(@RequestBody RequestManager<Job> request) {
+        log.info(">>>>>get jobs : {}" ,request);
+        return register.jobs(request);
     }
 
     /**
@@ -67,7 +65,7 @@ public class Center {
      * @return 工作内容
      */
     @PostMapping("job")
-    public Job job(Long jobIndex) {
+    public Job job(String jobIndex) {
         return register.getJob(jobIndex);
     }
 
@@ -77,12 +75,12 @@ public class Center {
      * @return
      */
     @PostMapping("add/job")
-    public BackMsg addJob(@Valid @RequestBody Job job) {
+    public ResponseManager addJob(@Valid @RequestBody Job job) {
         job.setObtainTime(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));
         if (register.addJob(job)) {
-            return new BackMsg();
+            return new ResponseManager();
         } else {
-            return new BackMsg(BackMsg.BackEnums.SYS_FAIL,"数据插入失败");
+            return new ResponseManager(ResponseManager.ResEnums.SYS_FAIL,"数据插入失败");
         }
     }
 }

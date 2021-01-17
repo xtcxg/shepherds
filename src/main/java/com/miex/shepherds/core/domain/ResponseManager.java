@@ -3,26 +3,26 @@ package com.miex.shepherds.core.domain;
 import lombok.Data;
 
 @Data
-public class BackMsg {
+public class ResponseManager {
     int code;
     String msg;
     Object data;
 
-    public BackMsg() {
-        this.code = BackEnums.SUCCESS.getCode();
-        this.msg = BackEnums.SUCCESS.getMsg();
+    public ResponseManager() {
+        this.code = ResEnums.SUCCESS.getCode();
+        this.msg = ResEnums.SUCCESS.getMsg();
     }
 
-    public BackMsg(BackEnums enums) {
+    public ResponseManager(ResEnums enums) {
         this.code = enums.getCode();
         this.msg = enums.getMsg();
     }
-    public BackMsg(BackEnums enums,String msg) {
+    public ResponseManager(ResEnums enums, String msg) {
         this.code = enums.getCode();
         this.msg = msg;
     }
 
-    public enum BackEnums{
+    public enum ResEnums{
         /**
          * 0 :正常
          * 1*:系统错误
@@ -32,7 +32,7 @@ public class BackMsg {
         SYS_FAIL(1001,"系统内部错误");
         int code;
         String msg;
-        BackEnums(int code, String msg) {
+        ResEnums(int code, String msg) {
             this.code = code;
             this.msg = msg;
         }

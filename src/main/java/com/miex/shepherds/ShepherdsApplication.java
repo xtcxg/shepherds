@@ -22,7 +22,7 @@ public class ShepherdsApplication {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(ShepherdsApplication.class);
-        app.setDefaultProperties(init());
+//        app.setDefaultProperties(init());
         app.run(args);
     }
 

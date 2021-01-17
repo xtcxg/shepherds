@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Dashboard {
 
-    @RequestMapping("/")
-    public String index(){
-        return "redirect:dashboard/index.html";
-    }
+//    @RequestMapping("/")
+//    public String index(){
+//        return "redirect:dashboard/index.html";
+//    }
 }

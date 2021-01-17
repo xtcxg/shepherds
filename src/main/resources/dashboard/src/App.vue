@@ -5,47 +5,54 @@
                 <el-col :span="15" >
                     <el-menu default-active="0" >
                         <p style="font-family: 'Consolas',monospace; font-size: 1.5em;" v-on:click="load('/views/cont.html')">Shepherds</p>
-                        <el-menu-item index="2" class="menu" v-on:click="load('/views/cont.html')">
+                        <el-menu-item index="2" class="menu" v-on:click="chose('display')">
                             <i class="el-icon-menu"></i>
-                            <span slot="title" style="font-size: 20px">控制</span>
+                            <span slot="title" style="font-size: 20px">展示</span>
                         </el-menu-item>
-                        <el-menu-item index="3" class="menu" v-on:click="load('/views/manage.html')">
+                        <el-menu-item index="3" class="menu" v-on:click="chose('admin')">
                             <i class="el-icon-open"></i>
                             <span slot="title" style="font-size: 20px">管理</span>
                         </el-menu-item>
-                        <el-menu-item index="4" class="menu" v-on:click="load('/views/add.html')">
+                        <el-menu-item index="4" class="menu" v-on:click="chose('display')">
                             <i class="el-icon-plus"></i>
-                            <span slot="title" style="font-size: 20px">添加</span>
+                            <span slot="title" style="font-size: 20px">创建</span>
                         </el-menu-item>
-                        <el-menu-item index="5" class="menu" v-on:click="load('/views/reg.html')">
+                        <el-menu-item index="5" class="menu" v-on:click="chose('plugin')">
                             <i class="el-icon-setting"></i>
                             <span slot="title" style="font-size: 20px">插件</span>
                         </el-menu-item>
                     </el-menu>
                 </el-col>
             </el-aside>
-
-            <el-main>
-                <Admin></Admin>
+            <el-main v-if="this.select==='admin'">
+                <Admin/>
             </el-main>
+            <el-main v-else-if="this.select==='display'">
+                <Display/>
+            </el-main>
+            <el-main v-else-if="this.select==='plugin'">
+                <Plugin/>
+            </el-main>
+
         </el-container>
     </div>
 </template>
 
 <script>
     import Admin from "./components/Admin";
+    import Display from "./components/Display";
+    import Plugin from "./components/Plugin";
+
     export default {
         name: "app",
-        components: {Admin},
+        components: {Admin,Display,Plugin},
         data() {
             return {
+                select: "admin",
                 mainPath: "/views/cont.html",
                 mainPage: "",
                 isCollapse: true,
             };
-        },
-        comments: {
-            admin: admin,
         },
         methods: {
             load(url) {
@@ -66,10 +73,14 @@
                         message: err.statusText
                     });
                 })
+            },
+            chose(s){
+                this.select = s;
+                console.log(this.select)
             }
         },
         mounted () {
-            this.load("/views/cont.html");
+            // this.load("/views/cont.html");
         },
     };
 </script>

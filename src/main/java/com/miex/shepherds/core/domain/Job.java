@@ -1,8 +1,8 @@
 package com.miex.shepherds.core.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,8 +13,9 @@ public class Job {
     /**
      * 文件的crc 16
      */
+    @TableId
     @NotNull
-    Long jobIndex;
+    String jobIndex;
 
     /**
      * 全称
