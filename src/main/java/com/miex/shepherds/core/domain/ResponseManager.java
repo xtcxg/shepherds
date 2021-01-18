@@ -13,6 +13,10 @@ public class ResponseManager {
         this.msg = ResEnums.SUCCESS.getMsg();
     }
 
+    public ResponseManager(Object data) {
+        this.data = data;
+    }
+
     public ResponseManager(ResEnums enums) {
         this.code = enums.getCode();
         this.msg = enums.getMsg();
@@ -26,10 +30,11 @@ public class ResponseManager {
         /**
          * 0 :正常
          * 1*:系统错误
-         * 2*：
+         * 2*：请求错误
          */
         SUCCESS(0,"success"),
-        SYS_FAIL(1001,"系统内部错误");
+        SYS_ERROR(1001,"系统内部错误"),
+        PARAMS_ERROR(2001, "参数校验不通过");
         int code;
         String msg;
         ResEnums(int code, String msg) {

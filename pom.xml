@@ -82,9 +82,13 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>static/**</include>
-                    <include>/**</include>
+                    <include>**</include>
                 </includes>
+                <excludes>
+                    <exclude>/dashboard/**</exclude>
+                    <exclude>/sqlite/**</exclude>
+                </excludes>
+                <filtering>false</filtering>
             </resource>
         </resources>
 

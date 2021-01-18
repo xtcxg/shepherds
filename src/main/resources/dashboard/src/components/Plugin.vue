@@ -2,9 +2,10 @@
     <div>
         <el-header>
             <el-button-group>
-                <el-button v-on:click="chose($event,'installed')" @click="insertedJobList(1,999)">installed</el-button>
-                <el-button v-on:click="chose($event,'update')" >update</el-button>
-                <el-button v-on:click="chose($event,'search')" >search</el-button>
+                <el-button @click="chose($event,'installed')">installed</el-button>
+                <el-button @click="chose($event,'update')" >update</el-button>
+                <el-button @click="chose($event,'search')" >search</el-button>
+                <el-button @click="chose($event,'upload')" >upload</el-button>
             </el-button-group>
         </el-header>
         <el-main v-if="this.page==='installed'">
@@ -57,6 +58,9 @@
         methods: {
             chose(e,page) {
               this.page = page;
+              if (page === "installed") {
+                  this.insertedJobList(1,999);
+              }
             },
             jobDelete(row){ //删除工作
                 console.log(row)

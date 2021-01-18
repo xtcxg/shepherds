@@ -6,7 +6,9 @@ import com.miex.shepherds.core.domain.ResponseManager;
 import com.miex.shepherds.core.domain.Worker;
 import com.miex.shepherds.core.manager.Manager;
 import com.miex.shepherds.core.register.Register;
+import com.miex.shepherds.utils.SnowFlakeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -45,9 +47,25 @@ public class Center {
      * @param request
      * @return
      */
-    @PostMapping("works")
+    @PostMapping("workers")
     public List<Worker> workers(@RequestBody RequestManager<Worker> request){
         return manager.getList(request);
+    }
+
+    @PostMapping("worker/work")
+    public ResponseManager work(@RequestBody RequestManager<String> request) {
+        String workerId = request.getParams();
+        ResponseManager response;
+        if (StringUtils.isEmpty(workerId)) {
+            response = new ResponseManager(ResponseManager.ResEnums.PARAMS_ERROR);
+        } else {
+            if (manager.work(workerId)){
+                response = new ResponseManager(ResponseManager.ResEnums.SUCCESS);
+            }else {
+                response = new ResponseManager(ResponseManager.ResEnums.SYS_ERROR);
+            }
+        }
+        return response;
     }
 
     /**
@@ -74,13 +92,14 @@ public class Center {
      * @param job
      * @return
      */
-    @PostMapping("add/job")
+    @PostMapping("job/add")
     public ResponseManager addJob(@Valid @RequestBody Job job) {
         job.setObtainTime(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));
+        job.setJobIndex(SnowFlakeUtil.getCrc());
         if (register.addJob(job)) {
-            return new ResponseManager();
+            return new ResponseManager(job);
         } else {
-            return new ResponseManager(ResponseManager.ResEnums.SYS_FAIL,"数据插入失败");
+            return new ResponseManager(ResponseManager.ResEnums.SYS_ERROR,"数据插入失败");
         }
     }
 }

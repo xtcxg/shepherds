@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +29,8 @@ public class Manager {
      * 工人列表
      */
     private final Map<String,Worker> workers = new HashMap<>();
+
+    private final Map<String,Process> operations = new HashMap<>();
 
     /**
      * 初始化工人
@@ -48,7 +53,7 @@ public class Manager {
             return new ResponseManager();
         } catch (Exception e){
             e.printStackTrace();
-            return new ResponseManager(ResponseManager.ResEnums.SYS_FAIL);
+            return new ResponseManager(ResponseManager.ResEnums.SYS_ERROR);
         }
     }
 
@@ -59,6 +64,33 @@ public class Manager {
      */
     public List<Worker> getList(RequestManager request){
         return page(request.getPage(),request.getSize());
+    }
+
+    public boolean work(String workerId) {
+        boolean res = false;
+        try {
+            Process process = Runtime.getRuntime().exec("java -jar C:\\Users\\Dell\\Desktop\\shepherds\\shepherd-1.0.jar 8abc77ab");
+            operations.put(workerId,process);
+            InputStreamReader ipr=new InputStreamReader(process.getInputStream());
+            LineNumberReader lnr = new LineNumberReader(ipr);
+            new Thread(){
+                public void run(){
+                    String line;
+                    try {
+                        while ((line = lnr.readLine ()) != null){
+                            System.out.println(line);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
+            res = true;
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        return res;
     }
 
     /**
