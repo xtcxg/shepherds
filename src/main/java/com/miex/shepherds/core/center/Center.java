@@ -1,5 +1,6 @@
 package com.miex.shepherds.core.center;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miex.shepherds.core.domain.Job;
 import com.miex.shepherds.core.domain.RequestManager;
 import com.miex.shepherds.core.domain.ResponseManager;
@@ -48,10 +49,15 @@ public class Center {
      * @return
      */
     @PostMapping("workers")
-    public List<Worker> workers(@RequestBody RequestManager<Worker> request){
+    public List<Worker> workers(@RequestBody RequestManager<String> request){
         return manager.getList(request);
     }
 
+    /**
+     * 根据 workerId ，使一个worker运行
+     * @param request
+     * @return
+     */
     @PostMapping("worker/work")
     public ResponseManager work(@RequestBody RequestManager<String> request) {
         String workerId = request.getParams();
@@ -66,6 +72,13 @@ public class Center {
             }
         }
         return response;
+    }
+    @PostMapping("worker/add")
+    public ResponseManager addWorker(@RequestBody JSONObject request){
+        if (manager.add(request)){
+
+        }
+        return new ResponseManager();
     }
 
     /**

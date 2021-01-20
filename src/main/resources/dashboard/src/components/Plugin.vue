@@ -33,26 +33,12 @@
 
 <script>
 
-    const host = "http://127.0.0.1:3695/";
     export default {
         name: "Plugin",
         data() {
             return {
                 page: "installed",
-                insertedData: [{
-                    "id":123123,
-                    "name":"redis",
-                    "version":"1.0",
-                    "time":"2021-01-04"
-                }, {
-                    "id":123154342,
-                    "name":"mysql",
-                    "version":"1.0",
-                    "time":"2021-01-04"
-                }],
-                url: {
-                   jobs: host + "jobs/",
-                }
+                insertedData: [],
             }
         },
         methods: {
@@ -69,8 +55,7 @@
                 console.log(row)
             },
             insertedJobList(page,size){ // 获取已注册的全部工作
-                console.log(this.url.jobs);
-                this.$http.post(this.url.jobs,{page: page, size: size})
+                this.$http.post(this.$store.state.url.jobs,{page: page, size: size})
                     .then((response) => {
                     this.insertedData = response.body;
                 }, (err) => {

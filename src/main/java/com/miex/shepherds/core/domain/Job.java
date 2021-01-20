@@ -35,10 +35,25 @@ public class Job {
 
     Integer insideVersion;
 
+    /**
+     * 默认的运行命令
+     */
+    String jobCmd;
+
+    /**
+     * 插件状态
+     */
+    String jobStatus;
+
+    /**
+     * 用户自定义的名称
+     */
+    String customName;
+
 //    @Value(value = "#{new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(new java.util.Date())}" )
     /**
      * 注册时间
      */
     String obtainTime;
-    Integer jobStatus;
+
 }

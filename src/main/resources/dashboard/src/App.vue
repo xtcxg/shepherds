@@ -13,7 +13,7 @@
                             <i class="el-icon-open"></i>
                             <span slot="title" style="font-size: 20px">管理</span>
                         </el-menu-item>
-                        <el-menu-item index="4" class="menu" v-on:click="chose('display')">
+                        <el-menu-item index="4" class="menu" v-on:click="chose('build')">
                             <i class="el-icon-plus"></i>
                             <span slot="title" style="font-size: 20px">创建</span>
                         </el-menu-item>
@@ -24,11 +24,14 @@
                     </el-menu>
                 </el-col>
             </el-aside>
-            <el-main v-if="this.select==='admin'">
+            <el-main v-if="this.select==='display'">
+                <Display/>
+            </el-main>
+            <el-main v-else-if="this.select==='admin'">
                 <Admin/>
             </el-main>
-            <el-main v-else-if="this.select==='display'">
-                <Display/>
+            <el-main v-else-if="this.select==='build'">
+                <Build/>
             </el-main>
             <el-main v-else-if="this.select==='plugin'">
                 <Plugin/>
@@ -42,10 +45,11 @@
     import Admin from "./components/Admin";
     import Display from "./components/Display";
     import Plugin from "./components/Plugin";
+    import Build from "./components/Build";
 
     export default {
         name: "app",
-        components: {Admin,Display,Plugin},
+        components: {Admin,Display,Plugin,Build},
         data() {
             return {
                 select: "admin",
@@ -80,7 +84,8 @@
             }
         },
         mounted () {
-            // this.load("/views/cont.html");
+            this.$store.commit("init","http://127.0.0.1:3695/");
+            // this.$store.commit("init",document.URL);
         },
     };
 </script>
