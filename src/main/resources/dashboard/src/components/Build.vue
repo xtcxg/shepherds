@@ -9,7 +9,7 @@
             <el-header class="admin-header" style="height: 40px;border-bottom: #ebb563 solid;">
                 <el-col><el-button  class="build-home" v-on:click="backHome()"/></el-col>
             </el-header>
-            <el-main v-if="this.content==='in'">
+            <el-main v-if="this.content==='in'" >
                 <el-form ref="buildForm" :model="buildForm" :rules="buildRules" label-width="80px" >
                     <el-form-item label="name" prop="name">
                         <el-input placeholder="" v-model="buildForm.workerName" />
@@ -33,8 +33,8 @@
                     </el-form-item>
                 </el-form>
             </el-main>
-            <el-main v-else-if="this.content==='out'" style="height: 100%">
-                <iframe class="iframe" v-bind:src="this.pluginView" frameborder="0" width="100%" height="98%" id="ifr"/>
+            <el-main v-else-if="this.content==='out'" style="height: 100%;padding: 0">
+                <iframe class="iframe" v-bind:src="this.pluginView" frameborder="0" width="100%" height="98%"/>
             </el-main>
         </el-container>
     </div>
@@ -102,7 +102,7 @@
                 }
 
                 this.content = 'out';
-                this.pluginView = "./views/cont.html"
+                this.pluginView = "./views/shepherd/index.html"
 
                 // console.log(worker);
                 // this.$http.post(this.$store.state.url.addWorker,worker)
