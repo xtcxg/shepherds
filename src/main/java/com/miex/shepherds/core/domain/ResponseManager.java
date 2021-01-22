@@ -34,6 +34,7 @@ public class ResponseManager {
          */
         SUCCESS(0,"success"),
         SYS_ERROR(1001,"系统内部错误"),
+        BD_ERROR(1002, "数据库操作失败"),
         PARAMS_ERROR(2001, "参数校验不通过");
         int code;
         String msg;

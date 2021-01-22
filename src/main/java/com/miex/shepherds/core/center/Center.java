@@ -76,9 +76,10 @@ public class Center {
     @PostMapping("worker/add")
     public ResponseManager addWorker(@RequestBody JSONObject request){
         if (manager.add(request)){
-
+            return new ResponseManager();
+        } else {
+            return new ResponseManager(ResponseManager.ResEnums.BD_ERROR);
         }
-        return new ResponseManager();
     }
 
     /**
