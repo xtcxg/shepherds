@@ -124,6 +124,7 @@
                 this.buildForm.jobIndex = job.jobIndex;
                 this.buildForm.cmd = job.jobCmd;
                 this.page = "build";
+                this.properties = {};
             },
             backHome(){
                 this.page = "chose";

@@ -36,6 +36,11 @@ public class Job {
     Integer insideVersion;
 
     /**
+     * 默认配置，使用json
+     */
+    String defProp;
+
+    /**
      * 默认的运行命令
      */
     String jobCmd;
